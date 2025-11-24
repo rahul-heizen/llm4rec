@@ -1,6 +1,14 @@
-def main():
-    print("Hello from api!")
+from fastapi import FastAPI
+import uvicorn
+
+app = FastAPI(title="LLM4Rec API", version="1.0.0")
+
+
+@app.get("/")
+async def root():
+    """Root endpoint that returns a welcome message."""
+    return {"message": "Welcome to LLM4Rec API"}
 
 
 if __name__ == "__main__":
-    main()
+    uvicorn.run(app, host="0.0.0.0", port=8000, reload=True)
