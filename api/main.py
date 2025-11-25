@@ -19,16 +19,86 @@ class FoodItem(BaseModel):
     image_url: str
 
 food_catalog = [
-    FoodItem(id=1, name="Quinoa Salad", description="Fresh quinoa with veggies", calories=320, is_vegan=True, image_url="https://example.com/images/quinoa_salad.jpg"),
-    FoodItem(id=2, name="Grilled Chicken", description="Lean grilled chicken breast", calories=250, is_vegan=False, image_url="https://example.com/images/grilled_chicken.jpg"),
-    FoodItem(id=3, name="Fruit Bowl", description="Seasonal fruits", calories=180, is_vegan=True, image_url="https://example.com/images/fruit_bowl.jpg"),
-    FoodItem(id=4, name="Veggie Wrap", description="Whole wheat wrap with mixed veggies", calories=290, is_vegan=True, image_url="https://example.com/images/veggie_wrap.jpg"),
-    FoodItem(id=5, name="Salmon Fillet", description="Grilled salmon with herbs", calories=350, is_vegan=False, image_url="https://example.com/images/salmon_fillet.jpg"),
-    FoodItem(id=6, name="Tofu Stir Fry", description="Stir fried tofu with vegetables", calories=270, is_vegan=True, image_url="https://example.com/images/tofu_stir_fry.jpg"),
-    FoodItem(id=7, name="Chicken Caesar Salad", description="Classic Caesar salad with grilled chicken", calories=310, is_vegan=False, image_url="https://example.com/images/chicken_caesar_salad.jpg"),
-    FoodItem(id=8, name="Lentil Soup", description="Hearty lentil soup", calories=220, is_vegan=True, image_url="https://example.com/images/lentil_soup.jpg"),
-    FoodItem(id=9, name="Egg White Omelette", description="Omelette made with egg whites and veggies", calories=200, is_vegan=False, image_url="https://example.com/images/egg_white_omelette.jpg"),
-    FoodItem(id=10, name="Avocado Toast", description="Whole grain toast with smashed avocado", calories=240, is_vegan=True, image_url="https://example.com/images/avocado_toast.jpg"),
+    FoodItem(
+        id=1,
+        name="Quinoa Power Salad",
+        description="A vibrant salad featuring protein-rich quinoa, crisp bell peppers, cherry tomatoes, cucumber, and a zesty lemon-tahini dressing. Perfect for a light, energizing meal.",
+        calories=320,
+        is_vegan=True,
+        image_url="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ12p-bErtTQXhAasJDrQHAp1qT8G1w-2lxsA&s"
+    ),
+    FoodItem(
+        id=2,
+        name="Herb-Grilled Chicken Breast",
+        description="Tender chicken breast marinated in fresh herbs and garlic, grilled to perfection and served with a side of roasted seasonal vegetables.",
+        calories=250,
+        is_vegan=False,
+        image_url="https://www.feastingathome.com/wp-content/uploads/2021/06/Grilled-lemon-Herb-Chicken-17.jpg"
+    ),
+    FoodItem(
+        id=3,
+        name="Seasonal Fruit Medley",
+        description="A refreshing bowl of handpicked seasonal fruits including berries, melon, and citrus, topped with a sprinkle of toasted coconut.",
+        calories=180,
+        is_vegan=True,
+        image_url="https://gooddinnermom.com/wp-content/uploads/1a7.jpg"
+    ),
+    FoodItem(
+        id=4,
+        name="Garden Veggie Wrap",
+        description="Whole wheat wrap filled with grilled zucchini, bell peppers, spinach, and hummus, offering a nutritious and satisfying vegan option.",
+        calories=290,
+        is_vegan=True,
+        image_url="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQcDkLOru31_OpYAPLRJqlBVUEk4JWGGFIJ9A&s"
+    ),
+    FoodItem(
+        id=5,
+        name="Lemon-Dill Salmon Fillet",
+        description="Wild-caught salmon fillet seasoned with lemon and dill, oven-roasted and served with a side of garlic sautéed green beans.",
+        calories=350,
+        is_vegan=False,
+        image_url="https://vikalinka.com/wp-content/uploads/2023/10/Salmon-with-Creamy-Salmon-Dill-Sauce-5-Edit.jpg"
+    ),
+    FoodItem(
+        id=6,
+        name="Tofu & Broccoli Stir Fry",
+        description="Crispy tofu cubes stir-fried with broccoli, carrots, and snap peas in a savory ginger-soy sauce, served over brown rice.",
+        calories=270,
+        is_vegan=True,
+        image_url="https://omnivorescookbook.com/wp-content/uploads/2025/01/241217_Tofu-And-Broccoli_550.jpg"
+    ),
+    FoodItem(
+        id=7,
+        name="Classic Chicken Caesar Salad",
+        description="Grilled chicken breast atop crisp romaine lettuce, tossed with creamy Caesar dressing, parmesan cheese, and crunchy whole grain croutons.",
+        calories=310,
+        is_vegan=False,
+        image_url="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSh1AJXXSvA_O9yB1PacKxgeJAqEqAqTLNQfA&s"
+    ),
+    FoodItem(
+        id=8,
+        name="Hearty Lentil & Vegetable Soup",
+        description="A warming soup made with green lentils, carrots, celery, tomatoes, and aromatic spices, simmered to perfection for a filling vegan meal.",
+        calories=220,
+        is_vegan=True,
+        image_url="https://www.therusticfoodie.com/wp-content/uploads/2023/01/Hearty-Lentil-Soup-featured.jpg"
+    ),
+    FoodItem(
+        id=9,
+        name="Veggie-Packed Egg White Omelette",
+        description="Fluffy egg white omelette loaded with spinach, mushrooms, tomatoes, and feta cheese, served with a slice of whole grain toast.",
+        calories=200,
+        is_vegan=False,
+        image_url="https://beautifuleatsandthings.com/wp-content/uploads/2018/05/Veggie-Stuffed-Egg-White-Omelet.jpg"
+    ),
+    FoodItem(
+        id=10,
+        name="Avocado Smash Toast",
+        description="Toasted whole grain bread topped with creamy smashed avocado, cherry tomatoes, radish slices, and a sprinkle of chili flakes.",
+        calories=240,
+        is_vegan=True,
+        image_url="https://images.immediate.co.uk/production/volatile/sites/30/2020/08/avocado-on-toast-96e3158.jpg"
+    ),
 ]
 
 class RecommendRequest(BaseModel):

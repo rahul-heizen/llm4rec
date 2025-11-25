@@ -14,6 +14,8 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [userBackground, setUserBackground] = useState("");
   const [recommending, setRecommending] = useState(false);
+  const [selectedItem, setSelectedItem] = useState(null);
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     getCatalog().then((data) => {
@@ -32,6 +34,16 @@ function App() {
       setCatalog(data);
     }
     setRecommending(false);
+  };
+
+  const handleDetails = (item) => {
+    setSelectedItem(item);
+    setShowModal(true);
+  };
+
+  const closeModal = () => {
+    setShowModal(false);
+    setSelectedItem(null);
   };
 
   if (loading) {
@@ -65,7 +77,9 @@ function App() {
                 </p>
               </CardContent>
               <CardFooter>
-                <Button variant="outline">Details</Button>
+                <Button variant="outline" onClick={() => handleDetails(item)}>
+                  Details
+                </Button>
               </CardFooter>
             </Card>
           ))}
@@ -92,6 +106,33 @@ function App() {
           {recommending ? "Loading..." : "Recommend"}
         </Button>
       </div>
+      {/* Modal */}
+      {showModal && selectedItem && (
+        <div className="fixed inset-0 flex items-center justify-center bg-[#0000004e] z-50">
+          <div className="bg-white rounded-lg shadow-lg p-6 max-w-md w-full relative">
+            <button
+              className="absolute top-2 right-2 text-gray-500 hover:text-gray-700"
+              onClick={closeModal}
+            >
+              &times;
+            </button>
+            <img
+              src={selectedItem.image_url}
+              alt={selectedItem.name}
+              className="rounded-md w-full h-48 object-cover mb-4"
+            />
+            <h2 className="text-2xl font-bold mb-2">{selectedItem.name}</h2>
+            <p className="mb-2">{selectedItem.description}</p>
+            <p className="text-sm text-muted-foreground mb-2">
+              Calories: {selectedItem.calories} |{" "}
+              {selectedItem.is_vegan ? "Vegan" : "Non-Vegan"}
+            </p>
+            <Button variant="outline" onClick={closeModal}>
+              Close
+            </Button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
