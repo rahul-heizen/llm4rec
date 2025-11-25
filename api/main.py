@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
 from typing import List
 from pydantic import BaseModel
@@ -26,6 +27,14 @@ food_catalog = [
 
 app = FastAPI(title="LLM4Rec API", version="1.0.0")
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 @app.get("/")
 async def root():
     """Root endpoint that returns a welcome message."""
@@ -35,7 +44,6 @@ async def root():
 async def get_catalog():
     """Endpoint that returns a catalog of food items with details."""
     return food_catalog
-
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000, reload=True)
