@@ -1,8 +1,14 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
 import uvicorn
 from typing import List
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
+from langchain_openai import ChatOpenAI
+from langchain_core.prompts import ChatPromptTemplate
+import os
+from dotenv import load_dotenv
+load_dotenv()
 
 class FoodItem(BaseModel):
     id: int
@@ -25,6 +31,12 @@ food_catalog = [
     FoodItem(id=10, name="Avocado Toast", description="Whole grain toast with smashed avocado", calories=240, is_vegan=True, image_url="https://example.com/images/avocado_toast.jpg"),
 ]
 
+class RecommendRequest(BaseModel):
+    user_background: str
+
+class RecommendResponse(BaseModel):
+    recommended_ids: List[int] = Field(description="List of recommended food item IDs")
+
 app = FastAPI(title="LLM4Rec API", version="1.0.0")
 
 app.add_middleware(
@@ -44,6 +56,38 @@ async def root():
 async def get_catalog():
     """Endpoint that returns a catalog of food items with details."""
     return food_catalog
+
+@app.post("/recommend", response_model=List[FoodItem])
+async def recommend_food(request: RecommendRequest):
+    catalog_context = "\n".join([
+        f"ID: {item.id}, Name: {item.name}, Desc: {item.description}, Calories: {item.calories}, Vegan: {item.is_vegan}"
+        for item in food_catalog
+    ])
+    prompt = (
+        "Given the following food catalog:\n"
+        f"{catalog_context}\n\n"
+        f"User background: {request.user_background}\n"
+        "Recommend a list of food item IDs (as a Python list) that best match the user's background. "
+        "Only output the list of IDs in the 'recommended_ids' field."
+    )
+
+    openai_api_key = os.getenv("OPENAI_KEY")
+    llm = ChatOpenAI(openai_api_key=openai_api_key, model="gpt-4o", temperature=0.2)
+    llm_structured = llm.with_structured_output(RecommendResponse)
+    response = llm_structured.invoke(prompt)
+    catalog = [
+        FoodItem(
+            id=item.id,
+            name=item.name,
+            description=item.description,
+            calories=item.calories,
+            is_vegan=item.is_vegan,
+            image_url=item.image_url
+        )
+        for item in food_catalog
+        if item.id in response.recommended_ids
+    ]
+    return catalog
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000, reload=True)
