@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "http://localhost:8000",
+  baseURL: "https://llm4rec-api.vercel.app",
   timeout: 5000,
 });
 
