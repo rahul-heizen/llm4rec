@@ -7,12 +7,13 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { useEffect, useState } from "react";
-import { getCatalog } from "./api";
+import { getCatalog, getRecommendations } from "./api";
 
 function App() {
   const [catalog, setCatalog] = useState([]);
   const [loading, setLoading] = useState(true);
   const [userBackground, setUserBackground] = useState("");
+  const [recommending, setRecommending] = useState(false);
 
   useEffect(() => {
     getCatalog().then((data) => {
@@ -20,6 +21,18 @@ function App() {
       setLoading(false);
     });
   }, []);
+
+  const handleRecommend = async () => {
+    setRecommending(true);
+    if (!userBackground.trim()) {
+      const data = await getCatalog();
+      setCatalog(data);
+    } else {
+      const data = await getRecommendations(userBackground);
+      setCatalog(data);
+    }
+    setRecommending(false);
+  };
 
   if (loading) {
     return (
@@ -70,8 +83,13 @@ function App() {
           onChange={(e) => setUserBackground(e.target.value)}
           placeholder="E.g. dietary preferences, allergies, etc."
         />
-        <Button className="self-end" variant="default">
-          Recommend
+        <Button
+          className="self-end"
+          variant="default"
+          onClick={handleRecommend}
+          disabled={recommending}
+        >
+          {recommending ? "Loading..." : "Recommend"}
         </Button>
       </div>
     </div>
