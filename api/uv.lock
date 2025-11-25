@@ -43,6 +43,7 @@ dependencies = [
     { name = "langchain" },
     { name = "langchain-openai" },
     { name = "openai" },
+    { name = "uvicorn" },
 ]
 
 [package.metadata]
@@ -51,6 +52,7 @@ requires-dist = [
     { name = "langchain", specifier = ">=1.1.0" },
     { name = "langchain-openai", specifier = ">=0.3.28" },
     { name = "openai", specifier = ">=1.98.0" },
+    { name = "uvicorn", specifier = ">=0.38.0" },
 ]
 
 [[package]]
