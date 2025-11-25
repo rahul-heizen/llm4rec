@@ -3,15 +3,6 @@ import uvicorn
 from typing import List
 from pydantic import BaseModel
 
-app = FastAPI(title="LLM4Rec API", version="1.0.0")
-
-
-@app.get("/")
-async def root():
-    """Root endpoint that returns a welcome message."""
-    return {"message": "Welcome to LLM4Rec API"}
-
-
 class FoodItem(BaseModel):
     id: int
     name: str
@@ -32,6 +23,13 @@ food_catalog = [
     FoodItem(id=9, name="Egg White Omelette", description="Omelette made with egg whites and veggies", calories=200, is_vegan=False, image_url="https://example.com/images/egg_white_omelette.jpg"),
     FoodItem(id=10, name="Avocado Toast", description="Whole grain toast with smashed avocado", calories=240, is_vegan=True, image_url="https://example.com/images/avocado_toast.jpg"),
 ]
+
+app = FastAPI(title="LLM4Rec API", version="1.0.0")
+
+@app.get("/")
+async def root():
+    """Root endpoint that returns a welcome message."""
+    return {"message": "Welcome to LLM4Rec API"}
 
 @app.get("/catalog", response_model=List[FoodItem])
 async def get_catalog():
